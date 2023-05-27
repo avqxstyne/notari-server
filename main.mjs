@@ -33,9 +33,10 @@ app.post('/login', jsonParser, (req, res) => {
 // Homescreen - get all notes and turn into elements in sidebar
 app.get('/getsidebar', (req, res) => {
 	res.send({
-		note1: "Slef improvemnt",
-		note2: "scheudle",
-		note3: "DNA Minsdet"
+		note1: "Sleep",
+		note2: "To-do list",
+		note3: "Morning routine",
+		note4: "Evening routine"
 	})
 })
 
