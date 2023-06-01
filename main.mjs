@@ -1,15 +1,13 @@
 import cors from 'cors';
 import express from 'express';
 import path from 'path';
-import bodyParser from 'body-parser'
-const port = 5171
+import bodyParser from 'body-parser';
+
+const port = 5171;
 const app = express();
 const __dirname = path.resolve();
 
-// const bodyParser = require('body-parser')
-
 var jsonParser = bodyParser.json()
-
 app.use(cors());
 
 // Setting up path for html file
@@ -27,6 +25,10 @@ app.listen(port, () =>
 // Login post request reciever
 app.post('/login', jsonParser, (req, res) => {
 	console.log(req.body)
+
+
+
+
 	res.send("hello there gay")
 });
 
