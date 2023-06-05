@@ -26,9 +26,6 @@ app.listen(port, () =>
 app.post('/login', jsonParser, (req, res) => {
 	console.log(req.body)
 
-
-
-
 	res.send("hello there gay")
 });
 
@@ -39,6 +36,14 @@ app.get('/getsidebar', (req, res) => {
 		note2: "To-do list",
 		note3: "Morning routine",
 		note4: "Evening routine"
+	})
+});
+
+app.post('/savefile', express.text(), (req, res) => {
+	console.log(req.body);
+
+	res.send({
+		status: "good"
 	})
 })
 
