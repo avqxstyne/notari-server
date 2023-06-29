@@ -1,5 +1,5 @@
 import mongoose, { Mongoose, mongo } from 'mongoose';
-const MONGODB = "mongodb://localhost:27017";
+const MONGODB = "mongodb://127.0.0.1:27017";
 
 const db = async () => {
     try {
@@ -9,3 +9,5 @@ const db = async () => {
         console.log(e)
     }
 }
+
+export default db
