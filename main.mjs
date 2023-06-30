@@ -45,7 +45,7 @@ app.post('/addnewnote', express.text(), (req, res) => {
 	console.log(req.body);
 
 	res.send({
-		status: "good"
+		status: "good" 
 	})
 })
 
