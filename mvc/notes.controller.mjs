@@ -21,7 +21,21 @@ export const getNotesToSidebar = async (req, res) => {
 		sidebarLinks[`note${i}`] = notes[i].fileName;
 	}
 	res.send(sidebarLinks)
+};
+
+export const findNoteFromDB = async (req, res) => {
+	let noteName = req.body.notename;
+	let desiredNote;
+
+	const notes = await Note.find()
+	for (let i = 0; i < notes.length; i++) {
+		if (notes[i].fileName == noteName) {
+			desiredNote = notes[i].note;
+		}
+	}
+	res.send(desiredNote)
 }
+
 
 const updateNote = async (req, res) => {
     const updatedUser = await Note.findOneAndUpdate(req.params.id, req.body);

@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import Note from './mvc/notes.model.mjs'
 import mongoose from "mongoose";
 import connect from './config/database.mjs';
-import { addNoteToMongo, getNotesToSidebar } from './mvc/notes.controller.mjs';
+import { addNoteToMongo, getNotesToSidebar, findNoteFromDB } from './mvc/notes.controller.mjs';
 
 
 const app = express();
@@ -16,19 +16,19 @@ app.listen(port,()=>console.log(`Example app listening on port ${port}!`),);
 connect();
 
 
-// Homescreen - get all notes and turn into elements in sidebar
+// called on mount to fetch sidebar links
 app.get('/getsidebar', async (req, res) => {
 	getNotesToSidebar(req, res)
 });
 
+// This object combines the two paths 
 let newnote = {};
 app.post('/addnewnote/blob', express.text(), (req, res) => {
 	newnote.note = req.body;
 	res.send({status: 'good'});
-}); 
-app.post('/addnewnote/credentials', express.json(jsonParser), (req, res) => {
-	newnote.userName = req.body.userName
-	newnote.fileName = req.body.fileName
+}); app.post('/addnewnote/credentials', express.json(jsonParser), (req, res) => {
+	newnote.userName = req.body.userName;
+	newnote.fileName = req.body.fileName;
 
 	res.send({status: 'good'});
 
@@ -38,21 +38,7 @@ app.post('/addnewnote/credentials', express.json(jsonParser), (req, res) => {
 })
 
 app.post('/findnote', express.json(jsonParser), async (req, res) => {
-	let noteName = req.body.notename;
-	let desiredNote;
-
-	const notes = await Note.find()
-	for (let i = 0; i < notes.length; i++) {
-		if (notes[i].fileName = noteName) {
-			desiredNote = notes[i].note;
-		}
-	}
-
-
-
-	console.log(desiredNote) 
-	res.send({status: "good"})
-
+	findNoteFromDB(req, res)
 })
 
 
