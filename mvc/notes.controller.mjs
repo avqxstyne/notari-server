@@ -6,14 +6,21 @@
 
 import Note from "./notes.model.mjs";
 
-export const getNotes = async (req, res) => {
-    const notes = await Note.find();
-    return notes; 
+export const addNoteToMongo = async (reqInformation) => {
+    const user = await Note.create({
+		userName: reqInformation.userName,
+		fileName: reqInformation.fileName,
+		note: reqInformation.note,
+	});
 }
 
-export const addNote = async (req, res) => {
-    const newNote = await Note.create(req.body);
-    return newNote;
+export const getNotesToSidebar = async (req, res) => {
+    const notes = await Note.find();
+	const sidebarLinks = new Object();	
+	for (let i = 0; i < notes.length; i++) {
+		sidebarLinks[`note${i}`] = notes[i].fileName;
+	}
+	res.send(sidebarLinks)
 }
 
 const updateNote = async (req, res) => {
