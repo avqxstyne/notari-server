@@ -36,16 +36,15 @@ export const findNoteFromDB = async (req, res) => {
 	res.send(desiredNote)
 }
 
+export const deleteNote = async (req, res) => {
+    const fileName = req.body.notename;
 
-const updateNote = async (req, res) => {
-    const updatedUser = await Note.findOneAndUpdate(req.params.id, req.body);
-    res.send(updatedUser)
-}
+    await Note.deleteOne({ fileName: `${fileName}`})
 
-const deleteNote = async (req, res) => {
-    const user_id = req.params.id;
-    await Note.findByIdAndRemove(user_id);
-    res.send(`Confirmed: User ${user_id} was deleted.`)
+	res.send({
+		status: "all good"
+	})
+
 }
 
 

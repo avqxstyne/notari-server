@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import Note from './mvc/notes.model.mjs'
 import mongoose from "mongoose";
 import connect from './config/database.mjs';
-import { addNoteToMongo, getNotesToSidebar, findNoteFromDB } from './mvc/notes.controller.mjs';
+import { addNoteToMongo, getNotesToSidebar, findNoteFromDB, deleteNote } from './mvc/notes.controller.mjs';
 
 
 const app = express();
@@ -24,7 +24,14 @@ app.get('/getsidebar', async (req, res) => {
 // Gets a specific note (called when sidebar link is pressed)
 app.post('/findnote', express.json(jsonParser), async (req, res) => {
 	findNoteFromDB(req, res)
-})
+});
+
+app.post('/deletenote', express.json(jsonParser), async (req, res) => {
+	await deleteNote(req, res);
+	console.log('test')
+});
+
+
 
 // This object combines the two paths 
 let addNewNote = {};
